@@ -56,7 +56,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             default:
                 Log.d(TAG, "onClick: Invalid operation");
-                Log.d(TAG, "onClick: Invalid operation");
         }
     }
 
@@ -69,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Bundle result = data.getExtras();
             mUsername.setText(result.getString("Username"));
             mPassword.setText(result.getString("Password"));
+            Log.d(TAG, "onActivityResult: ");
         }
     }
 }
