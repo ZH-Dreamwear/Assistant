@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         viewInit();
+        Log.d(TAG, "on create; "+" good");
     }
 
     //控件初始化,主要是绑定四个控件：帐号输入框，密码输入框，登录按钮，注册按钮。
