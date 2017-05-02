@@ -56,7 +56,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             default:
                 Log.d(TAG, "onClick: Invalid operation");
-                Log.d(TAG, "onClick: Invalid operation");
         }
     }
 
