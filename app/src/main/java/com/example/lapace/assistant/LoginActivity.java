@@ -22,13 +22,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button mLogin;
 
     //注册按钮
-    private Button mRegister;//aaaaa
+    private Button mRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         viewInit();
-        Log.d(TAG, "on create; "+" good");
+
     }
 
     //控件初始化,主要是绑定四个控件：帐号输入框，密码输入框，登录按钮，注册按钮。
@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mRegister = (Button)findViewById(R.id.btn_register);
         mLogin.setOnClickListener(this);
         mRegister.setOnClickListener(this);
+
     }
 
     @Override

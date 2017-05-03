@@ -3,6 +3,7 @@ package com.example.lapace.assistant;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText mUsername;
     private EditText mPassword;
     private Button mNext;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +30,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mPassword = (EditText)findViewById(R.id.edt_password);
         mNext = (Button)findViewById(R.id.btn_next);
         mNext.setOnClickListener(this);
+        toolbar = (Toolbar)findViewById(R.id.tb_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                setResult(0x2);
+                finish();
+            }
+        });
     }
 
     @Override
