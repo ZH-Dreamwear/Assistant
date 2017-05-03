@@ -14,15 +14,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = "LoginActivity";
     //帐号，
     private EditText mUsername;
-
     //密码
     private EditText mPassword;
-
     //登录按钮
     private Button mLogin;
-
     //注册按钮
     private Button mRegister;
+    //测试时候使用，忽略登录跳转到主界面。
+    private Button goMain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    //控件初始化,主要是绑定四个控件：帐号输入框，密码输入框，登录按钮，注册按钮。
+    //控件初始化
     void viewInit(){
         mUsername = (EditText)findViewById(R.id.edt_username);
         mPassword = (EditText)findViewById(R.id.edt_password);
@@ -40,13 +40,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mLogin.setOnClickListener(this);
         mRegister.setOnClickListener(this);
 
+        //测试时使用，直达主界面及其监听器。
+        goMain = (Button)findViewById(R.id.btn_Main);
+        goMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
+
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
 
-            case R.id.btn_login:
+            case R.id.btn_login://登录按钮，成功跳转到主界面，失败输出提示信息，未完成。
                 Toast.makeText(LoginActivity.this, "login", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_register://跳转到注册界面，RegisterActivity
@@ -64,6 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: "+Integer.toString(requestCode)+Integer.toString(resultCode));
+
         //requestCode=0x1且resultCode=0x1表示注册成功，更新编辑框的内容。
         if(requestCode == 0x1 & resultCode == 0x1){
             Bundle result = data.getExtras();
