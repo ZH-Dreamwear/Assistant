@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mUsername.setText(result.getString("Username"));
             mPassword.setText(result.getString("Password"));
             Log.d(TAG, "onActivityResult: ");
+            Log.d(TAG, "onActivityResult: ");
         }
     }
 }
