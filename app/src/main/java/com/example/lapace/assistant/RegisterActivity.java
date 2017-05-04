@@ -8,6 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -47,9 +56,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch(v.getId()){
             case R.id.btn_next://返回调用界面
                 Log.d(TAG, "onClick: R.id.btn_next");
+                sendRequestWithHttpURLConnection(mUsername.getText().toString(),mPassword.getText().toString());
                 Intent intent = new Intent();
                 intent.putExtra("Username",mUsername.getText().toString());
                 intent.putExtra("Password",mPassword.getText().toString());
+
                 setResult(0x1, intent);
                 finish();
                 break;
@@ -57,5 +68,59 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 Log.d(TAG, "onClick: Invalid operation");
                 finish();
         }
+    }
+
+    private void sendRequestWithHttpURLConnection(final String username, final String password){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpURLConnection connection = null;
+                BufferedReader reader = null;
+
+                try{
+                    String  s= "http://115.159.2.72/login/register.php?username="+ URLEncoder.encode(username,"utf-8")+
+                                "&password="+URLEncoder.encode(password,"utf-8");
+                    URL url = new URL(s);
+                    connection = (HttpURLConnection)url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setConnectTimeout(8000);
+                    connection.setReadTimeout(8000);
+                    InputStream in = connection.getInputStream();
+                    reader = new BufferedReader(new InputStreamReader(in));
+                    StringBuilder responseBuf = new StringBuilder();
+                    String line;
+                    while((line=reader.readLine())!=null){
+                        responseBuf.append(line);
+                    }
+
+                    //showResponse(parseXMLWithPull(responseBuf.toString()));
+                    showResponse(responseBuf.toString());
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
+                finally{
+                    if(reader != null){
+                        try{
+                            reader.close();
+                        }catch(IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                    if(connection != null){
+                        connection.disconnect();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private void showResponse(final String responseBuf){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(RegisterActivity.this, responseBuf, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
