@@ -20,6 +20,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button mLogin;
     //注册按钮
     private Button mRegister;
+
     //测试时候使用，忽略登录跳转到主界面。
     private Button goMain;
 

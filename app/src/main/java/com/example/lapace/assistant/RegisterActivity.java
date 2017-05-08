@@ -70,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    //向服务器发送注册请求
     private void sendRequestWithHttpURLConnection(final String username, final String password){
         new Thread(new Runnable() {
             @Override
@@ -115,6 +116,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }).start();
     }
 
+    //更新UI
     private void showResponse(final String responseBuf){
         runOnUiThread(new Runnable() {
             @Override
