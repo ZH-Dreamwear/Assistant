@@ -7,8 +7,8 @@
     android:divider="?android:attr/listDivider"
     android:background="#E8E8E8">
 
-
     <LinearLayout
+        android:id="@+id/ll_userInfo"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -47,10 +47,8 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
-
     <LinearLayout
+        android:id="@+id/ll_collection"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,8 +69,8 @@
             android:layout_weight="0"
             android:src="@drawable/ic_keyboard_arrow_right_black_50dp"/>
     </LinearLayout>
-
     <LinearLayout
+        android:id="@+id/ll_album"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
@@ -93,6 +91,7 @@
             android:src="@drawable/ic_keyboard_arrow_right_black_50dp"/>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/ll_FendBack"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -114,6 +113,7 @@
             android:src="@drawable/ic_keyboard_arrow_right_black_50dp"/>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/ll_versionInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
@@ -134,6 +134,7 @@
             android:src="@drawable/ic_keyboard_arrow_right_black_50dp"/>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/ll_setUp"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
