@@ -17,6 +17,7 @@ import com.example.lapace.assistant.PersonalInfo.SetUpFrag;
 import com.example.lapace.assistant.PersonalInfo.UserInfoFrag;
 import com.example.lapace.assistant.PersonalInfo.VersionInfoFrag;
 import com.example.lapace.assistant.R;
+import com.example.lapace.assistant.Service.UserService;
 
 import junit.runner.Version;
 
@@ -44,6 +45,8 @@ public class PersonalInfoFrag extends Fragment implements View.OnClickListener{
     private FendBackFrag mFendBack_F;
     private VersionInfoFrag mVersionInfo_F;
     private SetUpFrag mSetup_F;
+
+    private UserService.UserBinder userBinder;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class PersonalInfoFrag extends Fragment implements View.OnClickListener{
         switch (v.getId()){
             case R.id.ll_userInfo:
                 mUserInfo_F = new UserInfoFrag();
+                mUserInfo_F.setUserBinder(userBinder);
                 transaction.replace(R.id.fl_content,mUserInfo_F);
                 break;
             case R.id.ll_collection:
@@ -102,5 +106,9 @@ public class PersonalInfoFrag extends Fragment implements View.OnClickListener{
                 break;
         }
         transaction.commit();
+    }
+
+    public void setUserBinder(UserService.UserBinder userBinder){
+        this.userBinder=userBinder;
     }
 }

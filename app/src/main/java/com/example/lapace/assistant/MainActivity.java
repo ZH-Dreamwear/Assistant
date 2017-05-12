@@ -2,14 +2,21 @@ package com.example.lapace.assistant;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.lapace.assistant.Fragment.NewsFrag;
 import com.example.lapace.assistant.Fragment.PersonalInfoFrag;
 import com.example.lapace.assistant.Fragment.ShiShenDataFrag;
+import com.example.lapace.assistant.Service.UserService;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener{
 
@@ -22,6 +29,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private NewsFrag mNews;
     private ShiShenDataFrag mShiShenData;
     private PersonalInfoFrag mPersonalInfo;
+    public UserService.UserBinder userBinder;
+    private ServiceConnection userServiceConnection = new ServiceConnection() {
+
+        private static final String TAG = "UserInfoFrag";
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d(TAG, "onServiceConnected: ");
+            userBinder = (UserService.UserBinder) service;
+            Log.d(TAG, "onServiceConnected: "+userBinder.toString());
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         mBottomNavigationBar.setTabSelectedListener(this);//设置控件项目的监听器
         /* 设置默认显示的模块为新闻模块 */
         setDefaultFragment();
+        Intent intent = new Intent(this,UserService.class);
+        bindService(intent, userServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
     /* 定义默认显示的模块为新闻模块 */
@@ -68,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
             case 2://第2项切换到个人信息模块。
                 if(mPersonalInfo == null){
                     mPersonalInfo = new PersonalInfoFrag();
+                    mPersonalInfo.setUserBinder(userBinder);
                 }
                 transaction.replace(R.id.fl_content,mPersonalInfo);
                 break;
@@ -87,5 +114,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     @Override
     public void onTabReselected(int i) {
 
+    }
+
+    public UserService.UserBinder getUserBinder(){
+        return userBinder;
     }
 }
